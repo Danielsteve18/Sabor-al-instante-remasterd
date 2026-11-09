@@ -1,7 +1,7 @@
 # Modelo de datos
 
 Documento del esquema de base de datos del restaurante (Supabase / PostgreSQL).
-Origen: migración `supabase/migrations/0001_init.sql` (ELE-8).
+Origen: migración `supabase/migrations/0001_init.sql` (S0).
 
 ## Diagrama entidad-relación
 
@@ -256,8 +256,3 @@ Calcula el cupo ocupado por franja. No cuenta reservas canceladas.
 | posts.author_id | profiles.id | N a 0..1 | set null |
 
 `contact_messages` y `schedule` no tienen relaciones.
-
-## Pendiente
-
-- Políticas RLS (ELE-9): lectura pública de `categories` y `dishes` disponibles; acceso restringido en el resto.
-- Trigger que cree el perfil en `profiles` al registrarse un usuario.

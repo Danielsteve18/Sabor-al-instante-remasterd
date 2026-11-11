@@ -1,0 +1,28 @@
+# Dependencias y build
+node_modules/
+.next/
+out/
+build/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Logs y temporales
+*.log
+npm-debug.log*
+bun-error.log
+
+# Generados por Next.js
+next-env.d.ts

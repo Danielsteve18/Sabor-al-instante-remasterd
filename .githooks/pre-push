@@ -1,0 +1,27 @@
+#!/bin/sh
+# Bloquea el push directo a las ramas protegidas.
+# Para saltarlo en local: SKIP_PROTECTED_PUSH=1 git push
+# En GitHub la protección real la aplican los rulesets de main y dev.
+
+protected="main dev"
+
+while read local_ref local_sha remote_ref remote_sha; do
+  branch=$(echo "$remote_ref" | sed 's#^refs/heads/##')
+
+  for p in $protected; do
+    if [ "$branch" = "$p" ]; then
+      if [ "$SKIP_PROTECTED_PUSH" = "1" ]; then
+        echo "Aviso: push a '$branch' permitido por SKIP_PROTECTED_PUSH=1."
+        break
+      fi
+      echo ""
+      echo "ERROR: no se permite push directo a '$branch'."
+      echo "Abre un Pull Request desde tu rama usuario/sab-N-slug hacia dev."
+      echo "Para forzar solo en local: SKIP_PROTECTED_PUSH=1 git push"
+      echo ""
+      exit 1
+    fi
+  done
+done
+
+exit 0

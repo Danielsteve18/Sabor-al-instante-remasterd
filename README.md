@@ -2,6 +2,24 @@
 
 Sitio público y panel de administración para un restaurante: catálogo de platos, ofertas diarias, reservas, contacto, blog y gestión interna.
 
+## ¿Por qué este proyecto?
+
+Sabor al Instante es un restaurante que necesita una presencia digital que acompañe su operación diaria. Hasta hoy no contaba con una solución que funcionara de verdad:
+
+- Los clientes no podían consultar el menú ni las ofertas desde el celular.
+- No existía una forma ordenada de reservar mesa: todo se gestionaba por fuera, con pérdida de solicitudes y sin control de cupo.
+- Los mensajes de contacto se perdían: no llegaban a nadie.
+
+Este proyecto construye la solución digital completa del restaurante:
+
+- Sitio web con el menú siempre actualizado, ofertas diarias, historia y blog.
+- Reservas en línea simples y con confirmación inmediata para el cliente.
+- Canal de contacto que sí llega al equipo.
+- Panel de administración para gestionar menú, reservas, ofertas y contenido sin depender de programadores.
+- Cuentas de cliente para ver y manejar sus propias reservas.
+
+Con esto el restaurante pasa a operar su presencia online de punta a punta: del menú a la reserva, con todo administrable desde un solo lugar.
+
 ## Estado del proyecto
 
 Sprint actual: **S1 — Fundaciones** (4 al 11 de noviembre de 2026).

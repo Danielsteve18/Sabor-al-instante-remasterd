@@ -1,4 +1,4 @@
--- 0001_init.sql · ELE-8 · Migración inicial del esquema
+-- 0001_init.sql · SAB-8 · Migración inicial del esquema
 
 create table if not exists profiles (
   id uuid primary key references auth.users(id) on delete cascade,

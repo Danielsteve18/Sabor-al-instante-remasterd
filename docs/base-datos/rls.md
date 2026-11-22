@@ -1,11 +1,13 @@
 # Políticas RLS y funciones de rol
 
-Migración: `supabase/migrations/0002_rls.sql`
+Migraciones: `supabase/migrations/0002_rls.sql` y `supabase/migrations/0003_roles.sql`
 
 ## Funciones
-- `my_role()`: devuelve el rol (`cliente` o `admin`) del usuario autenticado, leyendo `profiles.role`.
+- `my_role()`: devuelve el rol (cliente, staffoadmin) del usuario autenticado, leyendo `profiles.role`.
 - `is_admin()`: `true` si `my_role() = 'admin'`.
-
+- `is_staff()` (0003): `true` si el rol es `staff` o `admin`.
+- `set_user_role(target_user, new_role)` (0003): única vía para asignar roles. Lanza error si el llamante no es admin, si el rol no es válido o si un admin intenta quitarse su propio rol.
+  
 Ambas son `security definer` con `search_path` vacío, para que las políticas de `profiles` no se llamen a sí mismas en bucle.
 
 ## Matriz de permisos
@@ -30,3 +32,16 @@ Ambas son `security definer` con `search_path` vacío, para que las políticas d
 ## Notas
 - Las reservas de invitado (`user_id` nulo) solo se pueden crear desde el servidor.
 - La vista `reservation_slot_usage` expone únicamente conteos por franja horaria.
+
+  ## Roles (SAB-17)
+- `profiles.role` admite `cliente` (por defecto), `staff` y `admin`.
+- Helpers en `lib/auth.ts`: `getCurrentRole()`, `isAdmin()`, `isStaff()`, `requireRole()`, `requireAdmin()`, `requireStaff()` y `setUserRole()`.
+- Promover a un usuario por SQL (primer admin, desde el SQL Editor): `update public.profiles set role = 'admin' where id = '<uuid>';`
+- Después, los roles se asignan con `select public.set_user_role('<uuid>', 'staff');` autenticado como admin.
+
+### Pruebas con un usuario de cada rol (por ejecutar en Supabase)
+| Usuario | `my_role()` | `set_user_role(...)` | UPDATE propio de `role` |
+| -- | -- | -- | -- |
+| cliente | `cliente` | error 42501 | sin efecto (RLS) |
+| staff | `staff` | error 42501 | sin efecto (RLS) |
+| admin | `admin` | permitido | permitido |

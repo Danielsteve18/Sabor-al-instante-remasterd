@@ -1,4 +1,4 @@
-Migraciones: `supabase/migrations/0002_rls.sql` y `supabase/migrations/0003_roles.sql`
+--Migraciones: `supabase/migrations/0002_rls.sql` y `supabase/migrations/0003_roles.sql`
 
 -- ============ Funciones de rol ============
 create or replace function public.my_role()

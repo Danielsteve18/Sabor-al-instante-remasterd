@@ -1,4 +1,4 @@
---Migraciones: `supabase/migrations/0002_rls.sql` y `supabase/migrations/0003_roles.sql`
+-- 0002_rls.sql · SAB-9 · Funciones de rol y políticas RLS
 
 -- ============ Funciones de rol ============
 create or replace function public.my_role()

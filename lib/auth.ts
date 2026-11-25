@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import type { Role } from "@/types/database";
 
-export type Role = "cliente" | "staff" | "admin";
+export type { Role };
 
 const ROLES: readonly Role[] = ["cliente", "staff", "admin"];
 

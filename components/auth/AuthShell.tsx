@@ -49,7 +49,7 @@ export function AuthShell({
   children,
 }: AuthShellProps) {
   return (
-    <main className="bg-[#0e0e0e] lg:grid lg:min-h-screen lg:grid-cols-2">
+    <main className="bg-brand-ink lg:grid lg:min-h-screen lg:grid-cols-2">
       <style>{`
         @keyframes auth-slide-down {
           from { opacity: 0; transform: translateY(-8px); }
@@ -59,9 +59,9 @@ export function AuthShell({
         .auth-input:-webkit-autofill,
         .auth-input:-webkit-autofill:hover,
         .auth-input:-webkit-autofill:focus {
-          -webkit-box-shadow: 0 0 0 1000px #222222 inset !important;
-          -webkit-text-fill-color: #f5f5f5 !important;
-          caret-color: #f5f5f5;
+          -webkit-box-shadow: 0 0 0 1000px var(--brand-field) inset !important;
+          -webkit-text-fill-color: var(--brand-text) !important;
+          caret-color: var(--brand-text);
           transition: background-color 9999s ease-in-out 0s;
         }
       `}</style>
@@ -78,29 +78,29 @@ export function AuthShell({
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-gradient-to-b from-black/55 via-black/65 to-[#0e0e0e] lg:bg-gradient-to-r lg:from-black/55 lg:via-black/70 lg:to-[#0e0e0e]"
+          className="absolute inset-0 -z-10 bg-gradient-to-b from-black/55 via-black/65 to-brand-ink lg:bg-gradient-to-r lg:from-black/55 lg:via-black/70 lg:to-brand-ink"
         />
 
         <div className="max-w-[520px]">
-          <span className="flex items-center gap-[10px] text-sm font-extrabold uppercase tracking-[1px] text-[#d4c59e] before:block before:h-2 before:w-2 before:rounded-full before:bg-[#d4c59e] before:content-['']">
+          <span className="flex items-center gap-[10px] text-sm font-extrabold uppercase tracking-[1px] text-brand-gold before:block before:h-2 before:w-2 before:rounded-full before:bg-brand-gold before:content-['']">
             Sabor al instante
           </span>
-          <h2 className="mt-3 text-[28px] font-extrabold uppercase leading-[1.08] tracking-[-1px] text-[#f5f5f5] [text-shadow:1px_1px_1px_rgba(0,0,0,0.3)] min-[500px]:text-[34px] lg:text-[44px] xl:text-[52px]">
+          <h2 className="mt-3 text-[28px] font-extrabold uppercase leading-[1.08] tracking-[-1px] text-brand-text [text-shadow:1px_1px_1px_rgba(0,0,0,0.3)] min-[500px]:text-[34px] lg:text-[44px] xl:text-[52px]">
             {panelTitle}
           </h2>
-          <p className="mt-4 hidden max-w-[440px] text-lg leading-normal text-[#b8b8b8] lg:block">
+          <p className="mt-4 hidden max-w-[440px] text-lg leading-normal text-brand-muted lg:block">
             {panelText}
           </p>
 
           <ul className="mt-10 hidden flex-col gap-5 lg:flex">
             {features.map((f) => (
               <li key={f.title} className="flex items-center gap-4">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#d4c59e]/15 text-[#d4c59e] ring-1 ring-[#d4c59e]/30">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-gold/15 text-brand-gold ring-1 ring-brand-gold/30">
                   <Icon name={f.icon} className="h-5 w-5" />
                 </span>
                 <span>
-                  <span className="block font-semibold text-[#f5f5f5]">{f.title}</span>
-                  <span className="block text-sm text-[#b8b8b8]">{f.text}</span>
+                  <span className="block font-semibold text-brand-text">{f.title}</span>
+                  <span className="block text-sm text-brand-muted">{f.text}</span>
                 </span>
               </li>
             ))}
@@ -109,41 +109,41 @@ export function AuthShell({
       </section>
 
       {/* ---------- Formulario ---------- */}
-      <section className="relative z-10 -mt-8 overflow-hidden rounded-t-[28px] border-t border-white/10 bg-[#141414] px-5 pb-14 pt-9 shadow-[0_-20px_40px_-20px_rgba(0,0,0,0.8)] min-[500px]:px-10 lg:mt-0 lg:flex lg:items-center lg:justify-center lg:rounded-none lg:border-0 lg:bg-[#0e0e0e] lg:px-12 lg:py-32 lg:shadow-none">
+      <section className="relative z-10 -mt-8 overflow-hidden rounded-t-[28px] border-t border-white/10 bg-brand-surface px-5 pb-14 pt-9 shadow-[0_-20px_40px_-20px_rgba(0,0,0,0.8)] min-[500px]:px-10 lg:mt-0 lg:flex lg:items-center lg:justify-center lg:rounded-none lg:border-0 lg:bg-brand-ink lg:px-12 lg:py-32 lg:shadow-none">
         {/* Brillo suave de fondo (solo escritorio) */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 hidden bg-[radial-gradient(circle_at_85%_10%,rgba(212,197,158,0.08),transparent_45%),radial-gradient(circle_at_10%_90%,rgba(143,174,86,0.07),transparent_45%)] lg:block"
+          className="auth-glow pointer-events-none absolute inset-0 hidden lg:block"
         />
 
         <div className="relative mx-auto w-full max-w-[440px]">
           <Link
             href={backHref}
-            className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[#d4c59e] no-underline transition-all duration-300 hover:-translate-x-1 hover:text-[#bba87c]"
+            className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-gold no-underline transition-all duration-300 hover:-translate-x-1 hover:text-brand-gold-hover"
           >
             <Icon name="arrow-left" className="h-4 w-4" />
             {backLabel}
           </Link>
 
-          <h1 className="mb-2 text-[28px] font-bold leading-tight text-[#f5f5f5] lg:text-[34px]">
+          <h1 className="mb-2 text-[28px] font-bold leading-tight text-brand-text lg:text-[34px]">
             {title}
           </h1>
-          <p className="mb-8 text-[15px] text-[#b8b8b8]">{subtitle}</p>
+          <p className="mb-8 text-[15px] text-brand-muted">{subtitle}</p>
 
           {children}
 
           <div
             aria-hidden="true"
-            className="my-7 flex items-center gap-4 text-sm text-[#b8b8b8] before:h-px before:flex-1 before:bg-white/10 before:content-[''] after:h-px after:flex-1 after:bg-white/10 after:content-['']"
+            className="my-7 flex items-center gap-4 text-sm text-brand-muted before:h-px before:flex-1 before:bg-white/10 before:content-[''] after:h-px after:flex-1 after:bg-white/10 after:content-['']"
           >
             o
           </div>
 
-          <p className="text-center text-[15px] text-[#b8b8b8]">
+          <p className="text-center text-[15px] text-brand-muted">
             {switchText}{" "}
             <Link
               href={switchHref}
-              className="inline-flex items-center gap-[6px] font-semibold text-[#d4c59e] no-underline transition-all duration-300 hover:gap-[10px] hover:text-[#bba87c]"
+              className="inline-flex items-center gap-[6px] font-semibold text-brand-gold no-underline transition-all duration-300 hover:gap-[10px] hover:text-brand-gold-hover"
             >
               {switchLabel}
               <Icon name="arrow-right" className="h-4 w-4" />

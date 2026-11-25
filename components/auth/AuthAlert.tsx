@@ -9,12 +9,12 @@ type AuthAlertProps = {
 
 const styles = {
   error: {
-    box: "border-[#d93636]/30 bg-[#d93636]/15 text-[#ff6b7a]",
+    box: "border-brand-error-deep/30 bg-brand-error-deep/15 text-brand-error",
     icon: "x-circle" as const,
     role: "alert" as const,
   },
   success: {
-    box: "border-white/20 bg-gradient-to-br from-[#8fae56]/95 to-[#7a9c48]/95 text-white shadow-[0_10px_30px_rgba(0,0,0,0.3)]",
+    box: "border-white/20 bg-gradient-to-br from-brand-green/95 to-brand-green-dark/95 text-white shadow-[0_10px_30px_rgba(0,0,0,0.3)]",
     icon: "check-circle" as const,
     role: "status" as const,
   },

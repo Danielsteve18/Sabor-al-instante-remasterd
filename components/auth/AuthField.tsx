@@ -41,7 +41,7 @@ export function AuthField({
     <div>
       <label
         htmlFor={id}
-        className="mb-2 block text-[0.9rem] font-medium text-[#f5f5f5]"
+        className="mb-2 block text-[0.9rem] font-medium text-brand-text"
       >
         {label}
       </label>
@@ -56,19 +56,19 @@ export function AuthField({
           defaultValue={defaultValue}
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy}
-          className={`auth-input peer block w-full rounded-xl border bg-[#222222] py-[14px] pl-[46px] text-base text-[#f5f5f5] transition-all duration-300 placeholder:text-[#b8b8b8]/50 focus:outline-none focus:ring-[3px] disabled:opacity-60 ${
+          className={`auth-input peer block w-full rounded-xl border bg-brand-field py-[14px] pl-[46px] text-base text-brand-text transition-all duration-300 placeholder:text-brand-muted/50 focus:outline-none focus:ring-[3px] disabled:opacity-60 ${
             isPassword ? "pr-[50px]" : "pr-4"
           } ${
             error
-              ? "border-[#ff6b7a] focus:border-[#ff6b7a] focus:ring-[#ff6b7a]/20"
-              : "border-white/10 focus:border-[#d4c59e] focus:ring-[#d4c59e]/10"
+              ? "border-brand-error focus:border-brand-error focus:ring-brand-error/20"
+              : "border-white/10 focus:border-brand-gold focus:ring-brand-gold/10"
           }`}
         />
 
         <span
           aria-hidden="true"
           className={`pointer-events-none absolute inset-y-0 left-4 flex items-center ${
-            error ? "text-[#ff6b7a]" : "text-[#b8b8b8]"
+            error ? "text-brand-error" : "text-brand-muted"
           }`}
         >
           <Icon name={icon} className="h-5 w-5" />
@@ -80,7 +80,7 @@ export function AuthField({
             onClick={() => setVisible((v) => !v)}
             aria-label={visible ? "Ocultar contraseña" : "Mostrar contraseña"}
             aria-pressed={visible}
-            className="absolute inset-y-0 right-2 flex w-10 cursor-pointer items-center justify-center border-none bg-transparent text-[#b8b8b8] transition-colors duration-300 hover:text-[#d4c59e]"
+            className="absolute inset-y-0 right-2 flex w-10 cursor-pointer items-center justify-center border-none bg-transparent text-brand-muted transition-colors duration-300 hover:text-brand-gold"
           >
             <Icon name={visible ? "eye-off" : "eye"} className="h-5 w-5" />
           </button>
@@ -88,11 +88,11 @@ export function AuthField({
       </div>
 
       {error ? (
-        <p id={`${id}-error`} className="mt-[6px] text-sm text-[#ff6b7a]">
+        <p id={`${id}-error`} className="mt-[6px] text-sm text-brand-error">
           {error}
         </p>
       ) : help ? (
-        <p id={`${id}-help`} className="mt-[6px] text-sm text-[#b8b8b8]">
+        <p id={`${id}-help`} className="mt-[6px] text-sm text-brand-muted">
           {help}
         </p>
       ) : null}

@@ -2,9 +2,9 @@
 
 import { useActionState } from "react";
 import { iniciarSesion, type LoginState } from "@/app/(auth)/login/actions";
-
-const inputClass =
-  "rounded-md border border-input bg-background px-3 py-2 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-invalid:border-destructive";
+import { AuthAlert } from "@/components/auth/AuthAlert";
+import { AuthField } from "@/components/auth/AuthField";
+import { AuthSubmit } from "@/components/auth/AuthSubmit";
 
 export function LoginForm({ next }: { next: string }) {
   const [state, formAction, pending] = useActionState<LoginState, FormData>(
@@ -14,51 +14,37 @@ export function LoginForm({ next }: { next: string }) {
   const fe = state?.fieldErrors;
 
   return (
+    // noValidate: la validación la hace el servidor y sus mensajes se ven en la página.
     <form action={formAction} noValidate className="flex flex-col gap-4">
+      {/* El action valida que sea una ruta interna antes de redirigir. */}
       <input type="hidden" name="next" value={next} />
 
-      <div className="flex flex-col gap-1">
-        <label htmlFor="email" className="text-foreground">Correo electrónico</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          defaultValue={state?.email}
-          aria-invalid={fe?.email ? true : undefined}
-          aria-describedby={fe?.email ? "email-error" : undefined}
-          className={inputClass}
-        />
-        {fe?.email && <p id="email-error" className="text-sm text-destructive">{fe.email}</p>}
-      </div>
+      <AuthField
+        id="email"
+        name="email"
+        label="Correo electrónico"
+        type="email"
+        icon="mail"
+        placeholder="tu@correo.com"
+        autoComplete="email"
+        defaultValue={state?.email}
+        error={fe?.email}
+      />
 
-      <div className="flex flex-col gap-1">
-        <label htmlFor="password" className="text-foreground">Contraseña</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          aria-invalid={fe?.password ? true : undefined}
-          aria-describedby={fe?.password ? "password-error" : undefined}
-          className={inputClass}
-        />
-        {fe?.password && <p id="password-error" className="text-sm text-destructive">{fe.password}</p>}
-      </div>
+      <AuthField
+        id="password"
+        name="password"
+        label="Contraseña"
+        type="password"
+        icon="lock"
+        placeholder="Tu contraseña"
+        autoComplete="current-password"
+        error={fe?.password}
+      />
 
-      {state?.error && (
-        <p role="alert" className="rounded-md border border-destructive p-3 text-sm text-destructive">
-          {state.error}
-        </p>
-      )}
+      {state?.error && <AuthAlert type="error">{state.error}</AuthAlert>}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="rounded-md bg-primary px-4 py-2 font-semibold text-primary-foreground disabled:opacity-60"
-      >
-        {pending ? "Entrando…" : "Iniciar sesión"}
-      </button>
+      <AuthSubmit pending={pending} label="Iniciar sesión" pendingLabel="Entrando…" />
     </form>
   );
 }

@@ -22,9 +22,9 @@ Con esto el restaurante pasa a operar su presencia online de punta a punta: del 
 
 ## Estado del proyecto
 
-Sprint actual: **S1 — Fundaciones** (4 al 11 de noviembre de 2026).
+Sprint actual: **S3 — Reservas, home y despliegue** (19 al 25 de noviembre de 2026).
 
-S1 entrega la estructura del repositorio, la documentación base, el modelo de datos y la identidad visual. **La base ejecutable —dependencias, `package.json` y código— se instala en S2.** Por eso en esta etapa no hay `bun install` ni servidor de desarrollo.
+S1 entregó la estructura del repositorio, la documentación base, el modelo de datos y la identidad visual. **La base ejecutable ya está instalada:** `package.json`, TypeScript, Tailwind CSS v4, los clientes de Supabase y `bun install` funcionan desde SAB-61.
 
 | Sprint | Fechas | Alcance |
 |---|---|---|
@@ -57,7 +57,7 @@ El detalle, las versiones y la justificación de cada elección están en [`docs
 
 El árbol completo está en [`docs/infra/estructura.md`](docs/infra/estructura.md).
 
-## Puesta en marcha (a partir de S2)
+## Puesta en marcha
 
 1. Instalar bun.
 2. `bun install`
@@ -70,6 +70,7 @@ El árbol completo está en [`docs/infra/estructura.md`](docs/infra/estructura.m
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | URL del proyecto de Supabase |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Clave pública (`anon`) para el cliente |
+| `SUPABASE_SERVICE_ROLE_KEY` | Solo tareas administrativas en servidor |
 
 Los secretos nunca se versionan. El detalle está en [`docs/infra/supabase.md`](docs/infra/supabase.md).
 

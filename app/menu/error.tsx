@@ -15,7 +15,8 @@ export default function MenuError({
   reset?: () => void;
 }) {
   useEffect(() => {
-    console.error("Error al cargar el menú:", error);
+    // El detalle técnico queda en consola; la página muestra solo un mensaje claro.
+    console.error("Error al cargar el menú:", error.message, error.cause ?? "");
   }, [error]);
 
   return (

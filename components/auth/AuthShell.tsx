@@ -49,7 +49,7 @@ export function AuthShell({
   children,
 }: AuthShellProps) {
   return (
-    <main className="bg-brand-ink lg:grid lg:min-h-screen lg:grid-cols-2">
+    <main className="flex h-dvh flex-col overflow-hidden bg-brand-ink lg:grid lg:grid-cols-2">
       <style>{`
         @keyframes auth-slide-down {
           from { opacity: 0; transform: translateY(-8px); }
@@ -67,7 +67,7 @@ export function AuthShell({
       `}</style>
 
       {/* ---------- Panel con foto (banner en celular) ---------- */}
-      <section className="relative isolate flex min-h-[290px] flex-col justify-end overflow-hidden px-5 pb-16 pt-28 min-[500px]:px-10 lg:min-h-screen lg:justify-center lg:px-14 lg:pb-20 lg:pt-32 xl:px-20">
+      <section className="relative isolate flex h-[clamp(230px,34dvh,320px)] shrink-0 flex-col justify-end overflow-hidden px-5 pb-10 pt-24 min-[500px]:px-10 lg:h-dvh lg:justify-center lg:px-14 lg:pb-20 lg:pt-32 xl:px-20">
         <Image
           src="/images/hero-bg.jpg"
           alt=""
@@ -109,7 +109,7 @@ export function AuthShell({
       </section>
 
       {/* ---------- Formulario ---------- */}
-      <section className="relative z-10 -mt-8 overflow-hidden rounded-t-[28px] border-t border-white/10 bg-brand-surface px-5 pb-14 pt-9 shadow-[0_-20px_40px_-20px_rgba(0,0,0,0.8)] min-[500px]:px-10 lg:mt-0 lg:flex lg:items-center lg:justify-center lg:rounded-none lg:border-0 lg:bg-brand-ink lg:px-12 lg:py-32 lg:shadow-none">
+      <section className="relative z-10 -mt-8 min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain rounded-t-[28px] border-t border-white/10 bg-brand-surface px-5 pb-10 pt-8 shadow-[0_-20px_40px_-20px_rgba(0,0,0,0.8)] min-[500px]:px-10 lg:h-dvh lg:flex lg:items-center lg:justify-center lg:rounded-none lg:border-0 lg:bg-brand-ink lg:px-12 lg:py-16 lg:shadow-none">
         {/* Brillo suave de fondo (solo escritorio) */}
         <div
           aria-hidden="true"

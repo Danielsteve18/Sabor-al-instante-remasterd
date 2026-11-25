@@ -13,6 +13,9 @@ Toda la documentación del proyecto vive en `docs/`, organizada por área.
 | `docs/base-datos/modelo-datos.md` | Modelo entidad-relación y tablas |
 | `docs/base-datos/rls.md` | Políticas de seguridad por fila |
 | `docs/diseno/identidad-visual.md` | Paleta, tipografía y tokens de diseño |
+| `docs/qa/smoke-test.md` | Checklist de smoke test ejecutado al cierre de S2 (SAB-13) |
+| `docs/qa/auth.md` | Casos y evidencia del flujo auth (SAB-19) |
+| `docs/qa/s2.md` | Verificación post-merge y defectos del sprint S2 (SAB-24) |
 
 ## Convenciones
 
@@ -30,3 +33,4 @@ Toda la documentación del proyecto vive en `docs/`, organizada por área.
 | `docs/requerimientos/` | Levantamiento funcional y reglas de negocio |
 | `docs/base-datos/` | Modelo de datos, migraciones y políticas |
 | `docs/diseno/` | Identidad visual y tokens |
+| `docs/qa/` | Evidencia de QA: smoke test, flujo auth y cierre semanal |

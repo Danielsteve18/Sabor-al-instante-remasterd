@@ -178,6 +178,21 @@
   --brand-gray: #aeb0b4;
   --brand-white: #ffffff;
   --brand-divider: #ffffff1a;
+
+  /* Pantallas de acceso (SAB-18) */
+  --brand-gold: #d4c59e;
+  --brand-gold-hover: #bba87c;
+  --brand-green: #8fae56;
+  --brand-green-dark: #7a9c48;
+  --brand-green-glow: rgba(143, 174, 86, 0.3);
+  --brand-green-glow-hover: rgba(143, 174, 86, 0.4);
+  --brand-ink: #0e0e0e;
+  --brand-surface: #141414;
+  --brand-field: #222222;
+  --brand-text: #f5f5f5;
+  --brand-muted: #b8b8b8;
+  --brand-error: #ff6b7a;
+  --brand-error-deep: #d93636;
 }
 
 
@@ -252,6 +267,19 @@
   --color-brand-white: var(--brand-white);
   --color-brand-divider: var(--brand-divider);
 
+  /* Pantallas de acceso (SAB-18) */
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-gold-hover: var(--brand-gold-hover);
+  --color-brand-green: var(--brand-green);
+  --color-brand-green-dark: var(--brand-green-dark);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-field: var(--brand-field);
+  --color-brand-text: var(--brand-text);
+  --color-brand-muted: var(--brand-muted);
+  --color-brand-error: var(--brand-error);
+  --color-brand-error-deep: var(--brand-error-deep);
+
   /* Bordes redondeados */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -269,6 +297,21 @@
 /* =========================================================
    7. ESTILOS BASE
    ========================================================= */
+
+/* Resplandor del panel de formulario de acceso (SAB-18). */
+.auth-glow {
+  background-image:
+    radial-gradient(
+      circle at 85% 10%,
+      color-mix(in srgb, var(--brand-gold) 8%, transparent),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 10% 90%,
+      color-mix(in srgb, var(--brand-green) 7%, transparent),
+      transparent 45%
+    );
+}
 
 @layer base {
   * {

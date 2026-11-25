@@ -9,7 +9,12 @@ import { createClient } from "@/lib/supabase/server";
 export const metadata: Metadata = { title: "Iniciar sesión · Sabor al Instante" };
 
 type Props = {
-  searchParams: Promise<{ next?: string; sesion?: string }>;
+  searchParams: Promise<{
+    next?: string;
+    sesion?: string;
+    confirmado?: string;
+    error?: string;
+  }>;
 };
 
 const panelTitle = (
@@ -19,7 +24,7 @@ const panelTitle = (
 );
 
 export default async function LoginPage({ searchParams }: Props) {
-  const { next, sesion } = await searchParams;
+  const { next, sesion, confirmado, error } = await searchParams;
 
   // getUser() valida la sesión con Supabase (más seguro que leer solo la cookie).
   const supabase = await createClient();
@@ -41,6 +46,11 @@ export default async function LoginPage({ searchParams }: Props) {
         switchHref="/cuenta"
       >
         <div className="flex flex-col gap-3">
+          {confirmado === "1" && (
+            <AuthAlert type="success" title="Correo confirmado">
+              Tu cuenta quedó activa y ya iniciaste sesión.
+            </AuthAlert>
+          )}
           <Link
             href="/"
             className="rounded-xl border border-brand-gold/40 px-4 py-[15px] text-center font-semibold text-brand-gold no-underline transition-colors hover:bg-brand-gold/10"
@@ -66,6 +76,16 @@ export default async function LoginPage({ searchParams }: Props) {
       switchHref="/registro"
     >
       <div className="flex flex-col gap-4">
+        {confirmado === "1" && (
+          <AuthAlert type="success" title="Correo confirmado">
+            Tu cuenta ya está activa. Inicia sesión para continuar.
+          </AuthAlert>
+        )}
+        {error === "confirmacion" && (
+          <AuthAlert type="error" title="No pudimos confirmar el correo">
+            El enlace venció o no es válido. Solicita uno nuevo desde el registro.
+          </AuthAlert>
+        )}
         {sesion === "cerrada" && (
           <AuthAlert type="success" title="Sesión cerrada">
             Cerraste sesión correctamente.

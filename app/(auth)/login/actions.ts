@@ -1,45 +1,65 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
+type Campo = "email" | "password";
+
 export type LoginState = {
-  /** Error general (credenciales incorrectas, correo sin confirmar, etc.). */
-  message?: string;
-  /** Errores por campo. */
-  errors?: { email?: string; password?: string };
-  /** Lo escrito, para no obligar a volver a teclear el correo. */
-  values?: { email: string };
+  error?: string;
+  fieldErrors?: Partial<Record<Campo, string>>;
+  email?: string;
 } | null;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export async function login(
+/** Solo acepta rutas internas (evita redirigir a otro sitio). */
+function destinoSeguro(valor: FormDataEntryValue | null): string {
+  const ruta = typeof valor === "string" ? valor : "";
+  const esInterna = ruta.startsWith("/") && !ruta.startsWith("//") && !ruta.startsWith("/\\");
+  return esInterna ? ruta : "/";
+}
+
+export async function iniciarSesion(
   _prev: LoginState,
   formData: FormData,
 ): Promise<LoginState> {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
+  const destino = destinoSeguro(formData.get("next"));
 
-  const errors: NonNullable<LoginState>["errors"] = {};
-  if (!EMAIL_RE.test(email)) {
-    errors.email = "Escribe un correo válido, por ejemplo nombre@correo.com";
-  }
-  if (!password) errors.password = "Escribe tu contraseña";
-  if (errors.email || errors.password) return { errors, values: { email } };
+  const fieldErrors: Partial<Record<Campo, string>> = {};
+  if (!EMAIL_RE.test(email)) fieldErrors.email = "Escribe un correo válido.";
+  if (!password) fieldErrors.password = "Escribe tu contraseña.";
+  if (Object.keys(fieldErrors).length > 0) return { fieldErrors, email };
 
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    return {
-      values: { email },
-      message:
-        error.code === "email_not_confirmed"
-          ? "Confirma tu correo antes de iniciar sesión."
-          : "Correo o contraseña incorrectos.",
-    };
+    switch (error.code) {
+      case "invalid_credentials":
+        // No se dice cuál dato falló, para no revelar qué correos existen.
+        return { error: "Correo o contraseña incorrectos.", email };
+      case "email_not_confirmed":
+        return { error: "Debes confirmar tu correo antes de iniciar sesión. Revisa tu bandeja de entrada.", email };
+      case "over_request_rate_limit":
+        return { error: "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.", email };
+      default:
+        console.error("Error en signInWithPassword:", error.code, error.message);
+        return { error: "No pudimos iniciar sesión. Intenta de nuevo.", email };
+    }
   }
 
-  redirect("/");
+  // La sesión queda guardada en cookies; se refresca todo el árbol de páginas.
+  revalidatePath("/", "layout");
+  redirect(destino);
+}
+
+export async function cerrarSesion() {
+  const supabase = await createClient();
+  await supabase.auth.signOut(); // Borra las cookies de sesión.
+  revalidatePath("/", "layout");
+  redirect("/login?sesion=cerrada");
 }

@@ -1,51 +1,64 @@
 "use client";
 
 import { useActionState } from "react";
-import { login } from "@/app/(auth)/login/actions";
-import { AuthAlert } from "@/components/auth/AuthAlert";
-import { AuthField } from "@/components/auth/AuthField";
-import { AuthSubmit } from "@/components/auth/AuthSubmit";
+import { iniciarSesion, type LoginState } from "@/app/(auth)/login/actions";
 
-export function LoginForm() {
-  const [state, formAction, pending] = useActionState(login, null);
+const inputClass =
+  "rounded-md border border-input bg-background px-3 py-2 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring aria-invalid:border-destructive";
+
+export function LoginForm({ next }: { next: string }) {
+  const [state, formAction, pending] = useActionState<LoginState, FormData>(
+    iniciarSesion,
+    null,
+  );
+  const fe = state?.fieldErrors;
 
   return (
-    <form action={formAction} noValidate>
-      {/* Durante el envío se bloquean los campos para evitar dobles clics */}
-      <fieldset
-        disabled={pending}
-        className="m-0 flex min-w-0 flex-col gap-5 border-0 p-0"
-      >
-        {state?.message && <AuthAlert type="error">{state.message}</AuthAlert>}
+    <form action={formAction} noValidate className="flex flex-col gap-4">
+      <input type="hidden" name="next" value={next} />
 
-        <AuthField
+      <div className="flex flex-col gap-1">
+        <label htmlFor="email" className="text-foreground">Correo electrónico</label>
+        <input
           id="email"
           name="email"
-          label="Correo electrónico"
           type="email"
-          icon="mail"
-          placeholder="correo@ejemplo.com"
           autoComplete="email"
-          defaultValue={state?.values?.email}
-          error={state?.errors?.email}
+          defaultValue={state?.email}
+          aria-invalid={fe?.email ? true : undefined}
+          aria-describedby={fe?.email ? "email-error" : undefined}
+          className={inputClass}
         />
-        <AuthField
+        {fe?.email && <p id="email-error" className="text-sm text-destructive">{fe.email}</p>}
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label htmlFor="password" className="text-foreground">Contraseña</label>
+        <input
           id="password"
           name="password"
-          label="Contraseña"
           type="password"
-          icon="lock"
-          placeholder="Ingresa tu contraseña"
           autoComplete="current-password"
-          error={state?.errors?.password}
+          aria-invalid={fe?.password ? true : undefined}
+          aria-describedby={fe?.password ? "password-error" : undefined}
+          className={inputClass}
         />
+        {fe?.password && <p id="password-error" className="text-sm text-destructive">{fe.password}</p>}
+      </div>
 
-        <AuthSubmit
-          pending={pending}
-          label="Iniciar sesión"
-          pendingLabel="Entrando…"
-        />
-      </fieldset>
+      {state?.error && (
+        <p role="alert" className="rounded-md border border-destructive p-3 text-sm text-destructive">
+          {state.error}
+        </p>
+      )}
+
+      <button
+        type="submit"
+        disabled={pending}
+        className="rounded-md bg-primary px-4 py-2 font-semibold text-primary-foreground disabled:opacity-60"
+      >
+        {pending ? "Entrando…" : "Iniciar sesión"}
+      </button>
     </form>
   );
 }

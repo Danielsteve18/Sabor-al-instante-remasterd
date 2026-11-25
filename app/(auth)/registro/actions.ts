@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { getSiteUrl } from "@/lib/site-url";
 
 type Campo = "full_name" | "email" | "password";
 
@@ -57,7 +58,10 @@ export async function registrar(
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { full_name: fullName } },
+    options: {
+      data: { full_name: fullName },
+      emailRedirectTo: `${getSiteUrl()}/auth/callback`,
+    },
   });
 
   if (error) {

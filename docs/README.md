@@ -5,7 +5,7 @@ Toda la documentación del proyecto vive en `docs/`, organizada por área.
 | Documento | Contenido |
 |---|---|
 | `docs/actas/s0.md` | Acta de capacitación del sprint S0 |
-| `docs/actas/s1.md` | Verificación y acta de cierre del sprint S1 |
+| `docs/actas/s2.md` | Acta de seguimiento del sprint S2 |
 | `docs/infra/stack.md` | Stack, versiones y aplicaciones de gestión |
 | `docs/infra/estructura.md` | Árbol de carpetas y propósito de cada una |
 | `docs/infra/supabase.md` | Proyecto de Supabase, migraciones y credenciales |

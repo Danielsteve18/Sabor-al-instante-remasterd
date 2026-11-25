@@ -1,0 +1,14 @@
+import { createBrowserClient } from "@supabase/ssr";
+
+/**
+ * Cliente de Supabase para el NAVEGADOR (Client Components).
+ *
+ * Usa la llave pública (respeta las políticas RLS). Úsalo en componentes
+ * marcados con "use client".
+ */
+export function createClient() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  );
+}
